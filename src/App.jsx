@@ -41,21 +41,40 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    if (!audioRef.current) return;
-    audioRef.current.volume = 0.55;
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    audio.volume = 0.55;
 
     const tryPlay = () => {
-      audioRef.current?.play().catch(() => {});
+      audio.play().catch(() => {});
     };
 
     tryPlay();
-    window.addEventListener("click", tryPlay, { once: true });
-    return () => window.removeEventListener("click", tryPlay);
+    audio.addEventListener("canplay", tryPlay);
+    window.addEventListener("pointerdown", tryPlay, { once: true });
+    window.addEventListener("keydown", tryPlay, { once: true });
+    window.addEventListener("focus", tryPlay);
+
+    const onVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        tryPlay();
+      }
+    };
+    document.addEventListener("visibilitychange", onVisibilityChange);
+
+    return () => {
+      audio.removeEventListener("canplay", tryPlay);
+      window.removeEventListener("pointerdown", tryPlay);
+      window.removeEventListener("keydown", tryPlay);
+      window.removeEventListener("focus", tryPlay);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+    };
   }, []);
 
   return (
     <div className="app-shell">
-      <audio ref={audioRef} src="/music/bg.mp3" loop preload="auto" />
+      <audio ref={audioRef} src="/music/bg.mp3" autoPlay loop preload="auto" />
 
       {scene === "intro" ? (
         <section className="scene">
