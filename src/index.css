@@ -1,0 +1,200 @@
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@400;500;600&display=swap");
+
+:root {
+  color: #fff;
+  font-family: "Inter", sans-serif;
+  background: #000;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #000;
+}
+
+#root,
+.app-shell,
+.scene {
+  width: 100vw;
+  height: 100vh;
+}
+
+.scene {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+
+.bg-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.intro-overlay {
+  background: radial-gradient(circle at 20% 15%, rgba(255, 218, 185, 0.3), transparent 45%),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7));
+}
+
+.wedding-overlay {
+  background: linear-gradient(to bottom right, rgba(37, 14, 9, 0.5), rgba(0, 0, 0, 0.75));
+}
+
+.hero-text,
+.invite-card {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  width: min(92vw, 760px);
+}
+
+.hero-text h1,
+.invite-card h1 {
+  font-family: "Cinzel", serif;
+  font-size: clamp(2rem, 5vw, 4rem);
+  margin: 0;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+.kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  font-size: 0.74rem;
+  opacity: 0.9;
+  margin-bottom: 1rem;
+}
+
+.subline {
+  margin-top: 1.2rem;
+  opacity: 0.9;
+  font-size: 1rem;
+}
+
+.petal-layer {
+  position: absolute;
+  inset: -10% 0 0 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.petal {
+  position: absolute;
+  top: -5%;
+  border-radius: 65% 0 65% 0;
+  background: linear-gradient(145deg, #ffd7d7, #ff7f96);
+  box-shadow: 0 0 12px rgba(255, 143, 160, 0.45);
+  opacity: 0.85;
+  animation-name: fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes fall {
+  0% {
+    transform: translate3d(0, -10vh, 0) rotate(0deg);
+  }
+  100% {
+    transform: translate3d(var(--drift), 115vh, 0) rotate(380deg);
+  }
+}
+
+.invite-card {
+  background: rgba(16, 11, 10, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 24px;
+  backdrop-filter: blur(8px);
+  padding: clamp(1.5rem, 4vw, 3rem);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+.invite-card span {
+  color: #ffcfa8;
+}
+
+.invite-card h1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.18em;
+}
+
+.invite-card .name-line {
+  display: block;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.invite-card .ampersand {
+  display: block;
+  text-align: center;
+}
+
+.date-line {
+  margin: 1.1rem 0 1.6rem;
+  font-size: 1.1rem;
+  line-height: 1.55;
+}
+
+.reveal-btn {
+  border: none;
+  border-radius: 999px;
+  padding: 0.8rem 1.6rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #2b1110;
+  background: linear-gradient(120deg, #ffe3c1, #ffc7a8);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.reveal-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(255, 199, 168, 0.4);
+}
+
+.details {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.1);
+  animation: showUp 0.45s ease;
+}
+
+.details p {
+  margin: 0.5rem 0;
+}
+
+@keyframes showUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .kicker {
+    letter-spacing: 0.16em;
+  }
+
+  .date-line {
+    font-size: 1rem;
+  }
+}
